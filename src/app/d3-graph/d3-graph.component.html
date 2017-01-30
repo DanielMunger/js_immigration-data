@@ -1,3 +1,9 @@
 <p>
   d3-graph works!
 </p>
+<div *ngFor="let data of dataset | async">
+    <p>
+      {{data.clr}}
+      {{data.eighteensixties}}
+    </p>
+</div>

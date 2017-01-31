@@ -1,6 +1,6 @@
 import { Component,Directive,Input, OnInit,Inject,ElementRef } from '@angular/core';
 import {Output,OnChanges, SimpleChange} from '@angular/core';
-import {O2Common,O2LegendData,O2ScatterPlotData,O2StackBarData,O2LineData,O2IdValueData} from './shared/common';
+import {O2Common,O2LegendData} from './shared/common';
 import {ChartConst} from './shared/chart-const';
 import { DataService } from '../data.service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
@@ -20,36 +20,58 @@ export class D3GraphComponent implements OnInit, OnChanges {
   @Input() graphData:Array<number>;
   @Input() configData:any;
 
-  root: any;
 
-  constructor( elementRef: ElementRef )
+
+  root: any;
+  ImmigrationDataset: FirebaseListObservable<any[]>;
+
+  constructor(private dataService: DataService, elementRef: ElementRef )
   {
-      console.log("el:HTMLElement-------------------");
-      let el:HTMLElement    = elementRef.nativeElement;
-      this.root = d3.select(el);
+    let el:HTMLElement = elementRef.nativeElement;
+    this.root = d3.select(el);
   }
 
   ngOnInit() {
+    var immigrants;
+    this.ImmigrationDataset = this.dataService.getData();
+    console.log(this.ImmigrationDataset)
+    this.ImmigrationDataset.subscribe(
+        result => {
+          immigrants = result;
+          console.log("ONinit:", (immigrants));
+          let svgWidth = parseInt(this.svgWidth);
+          let svgHeight = parseInt(this.svgHeight);
+          let dataSet = this.graphData;
+          let configData = this.configData;
+          let chartType = this.chartType;
+          let svgContainer = this.root.append("svg")
+                    .attr("width", svgWidth)
+                    .attr("height", svgHeight);
+
+          console.log(chartType);
+
+          this.buildGeoMap(svgContainer,configData, dataSet,svgWidth,svgHeight, immigrants);
+        });
   }
 
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-  let svgWidth = parseInt(this.svgWidth);
-  let svgHeight = parseInt(this.svgHeight);
-  let dataSet = this.graphData;
-  let configData = this.configData;
-  let chartType = this.chartType;
-  let svgContainer = this.root.append("svg")
-            .attr("width", svgWidth)
-            .attr("height", svgHeight);
-
-  console.log(chartType);
-  switch (chartType) {
-    case ChartConst.GEO_MAP_CHART_TYPE_NAME:                          this.buildGeoMap(svgContainer,configData, dataSet,svgWidth,svgHeight );
-    }
+    //
+    // let svgWidth = parseInt(this.svgWidth);
+    // let svgHeight = parseInt(this.svgHeight);
+    // let dataSet = this.graphData;
+    // let configData = this.configData;
+    // let chartType = this.chartType;
+    // let svgContainer = this.root.append("svg")
+    //           .attr("width", svgWidth)
+    //           .attr("height", svgHeight);
+    //
+    // console.log(chartType);
+    //
+    // this.buildGeoMap(svgContainer,configData, dataSet,svgWidth,svgHeight);
 
   }
 
-  private buildGeoMap(svgContainer: any, configData:any,dataSetJson: any, svgWidth: number, svgHeight: number): void {
+  private buildGeoMap(svgContainer: any, configData:any,dataSetJson: any, svgWidth: number, svgHeight: number, immigrants){
 
         console.log("in buildGeoMap -------------------");
 
@@ -62,7 +84,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
         let _keyDataName = dataSetJson.map.keyDataName;
         let _keyName = "data."+_keyDataName;
         let _targetProperty = "d."+dataSetJson.map.targetPropertyName;
-        let _antarcticaColor = dataSetJson.map.antarcticaColor;
+        //let _antarcticaColor = dataSetJson.map.antarcticaColor;
         let _legendDisplay = configData.legend.display
 
         let path = d3.geoPath()
@@ -72,15 +94,29 @@ export class D3GraphComponent implements OnInit, OnChanges {
                         .scale(_scale)
                     )
 
-        let _findColorByName = (name:string):string => {
-            for (let i in dataSetJson.data){
-                if (name ==dataSetJson.data[i].name){
-                    let _color = dataSetJson.data[i].color;
-                    return _color;
-                }
+        // let _findColorByName = (name:string):string => {
+        //     for (let i in dataSetJson.data){
+        //         if (name ==dataSetJson.data[i].name){
+        //             let _color = dataSetJson.data[i].color;
+        //             return _color;
+        //         }
+        //     }
+        //     return null;
+        // }
+        function colorByImmigration(country)
+        {
+          for(var i =0; i <immigrants.length; i++)
+          {
+            console.log(i)
+            //console.log("clr:",immigrants[i])
+            if(country === immigrants[i].clr){
+              return "black";
+            }else {
+                return "blue";
             }
-            return null;
+          }
         }
+
 
 
         d3.json(_geoMapDataUrl,(error,data) =>{
@@ -91,10 +127,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
                     .attr("d",path)
                     .style("fill",(d,i) => {
                         let _targetArea = eval(_targetProperty);
-                        if (_findColorByName(_targetArea)!= null){
-                            return _findColorByName(_targetArea);
-                        }
-                        return "hsl("+i+",80%,60%)";
+                        return colorByImmigration(_targetArea);
                     })
             })
 
@@ -116,6 +149,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
 
 
     }
+
     private buildLegend(o2Common: any,_legendDataSet: any):void{
 
         console.log("in buildLegend-------------------");
@@ -171,34 +205,3 @@ export class D3GraphComponent implements OnInit, OnChanges {
     }
 
 }
-
-
-
-
-
-
-
-
-
-//private d3: D3;
-// private parentNativeElement: any;
-
-//
-// dataset: FirebaseListObservable<any[]>;
-//
-// constructor(private dataService: DataService) {
-//   // this.d3 = d3Service.getD3() // <-- obtain the d3 object from the D3 Service
-//   // this.parentNativeElement = element.nativeElement;
-// }
-// ngOnInit() {
-//   //let d3 = this.d3; // <-- for convenience use a block scope variable
-//   //et d3ParentElement: Selection<any, any, any, any>; // <-- Use the Selection interface (very basic here for illustration only)
-//   this.dataset = this.dataService.getData();
-//
-//
-//   d3.request("subunits.json", function(error, uk) {
-//     if (error) return console.error("hello");
-//     console.log(uk);
-//   });
-//
-//

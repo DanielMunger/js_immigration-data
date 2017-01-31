@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DataService } from './data.service';
+import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
 @Component({
   selector: 'app-root',
@@ -9,6 +10,7 @@ import { DataService } from './data.service';
 })
 export class AppComponent {
   title = 'app works!';
+
 
 
   chartType:string;
@@ -145,26 +147,26 @@ private initilizeData(){
         "baseGeoDataUrl":"https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson",
         "scale":150,
         "keyDataName":"features",
-        "targetPropertyName":"properties.name",
+        "targetPropertyName":"properties.ADMIN",
     },
-    // "data":[
-    //   {
-    //     "name":"Australia",
-    //     "color":"green"
-    //   },
-    //   {
-    //     "name":"Antarctica",
-    //     "color":"white"
-    //   },
-    //   {
-    //     "name":"Japan",
-    //     "color":"blue"
-    //   },
-    //   {
-    //     "name": "United States",
-    //     "color": "#0c54c9"
-    //   }
-    //],
+    "data":[
+      {
+        "name":"Australia",
+        "color":"black"
+      },
+      {
+        "name":"Antarctica",
+        "color":"white"
+      },
+      {
+        "name":"Japan",
+        "color":"blue"
+      },
+      {
+        "name": "United States",
+        "color": "pink"
+      }
+    ],
   };
   }
 }

@@ -158,15 +158,15 @@ private initilizeData(){
   this.geoMapDataJson =
   {
     "map":{
-        "baseGeoDataUrl":"https://raw.githubusercontent.com/Ohtsu/data/master/o2-chart/world.geojson",
-        "scale":75,
+        "baseGeoDataUrl":"https://raw.githubusercontent.com/Solgo/js_immigration-data/master/src/countries/AFG.geo.json",
+        "scale":80,
         "keyDataName":"features",
         "targetPropertyName":"properties.name",
     },
     "data":[
       {
         "name":"Australia",
-        "color":"red"
+        "color":"green"
       },
       {
         "name":"Antarctica",
@@ -176,6 +176,10 @@ private initilizeData(){
         "name":"Japan",
         "color":"blue"
       },
+      {
+        "name": "United States",
+        "color": "#0c54c9"
+      }
     ],
   };
   }

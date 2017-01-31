@@ -1,4 +1,14 @@
-<h1>
+<!-- <h1>
   {{title}}
 </h1>
-<app-d3-graph></app-d3-graph>
+<app-d3-graph></app-d3-graph> -->
+
+<div class="tab-content">
+
+	<div class="tab-pane" id="myTabPage09">
+		<hr>
+		<h2>GeoMap</h2>
+		<app-d3-graph [chartType]="geoMapTypeName" [configData]="configData"  [graphData]="geoMapDataJson" [svgWidth]="'600'" [svgHeight]="'400'"></app-d3-graph>
+	</div>
+
+</div>

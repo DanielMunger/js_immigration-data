@@ -74,6 +74,8 @@ export class D3GraphComponent implements OnInit, OnChanges {
   private buildGeoMap(svgContainer: any, configData:any,dataSetJson: any, svgWidth: number, svgHeight: number, immigrants){
 
 
+        console.log("in buildGeoMap -------------------");
+        var countryIterator = 0;
 
         let _maxX = 100; //any value
         let _maxY = 100; //any value
@@ -105,24 +107,33 @@ export class D3GraphComponent implements OnInit, OnChanges {
         // }
         function colorByImmigration(country)
         {
-          var color="black";
-          for(var i =0; i <= immigrants.length -1; i++)
-          {
+            var inDB = false;
+            var index = null;
 
-            if(immigrants[i].clr === country){
-
-              if(immigrants[i].nineteenfourties > 15000 && immigrants[i].nineteenfourties < 25000)
-              {
-                color =  "yellow"
-              }else{
-                color = "blue"
-              }
-
+            for(var i = 0; i < immigrants.length; i++)
+            {
+                if(country == immigrants[i].clr){
+                    inDB = true;
+                    index = i;
+                }
             }
-          }
-          return color;
+                if(inDB){
+                    return immigrationIntensity(immigrants[index].nineteenfourties);
+                }
+                else{
+                    return "black";
+                }
+
         }
 
+        function immigrationIntensity(input){
+            if(input > 10000){
+                return "red";
+            }
+            else{
+                return "blue";
+            }
+        }
 
 
         d3.json(_geoMapDataUrl,(error,data) =>{

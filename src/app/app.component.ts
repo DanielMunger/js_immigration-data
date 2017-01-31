@@ -102,18 +102,6 @@ private initilizeData(){
       ],
       "focusColor":"red",
     },
-    "pie":{
-      "innerRadius": {
-        "percent":20,
-        "title":"Total"
-      },
-      "value":{
-        "display":true,
-      },
-      "percent":{
-        "display":false,
-      }
-    },
     "line": {
       "legend":"lineEnd",
       "interpolate" :"linear",
@@ -146,10 +134,6 @@ private initilizeData(){
       },
 
     },
-    "animation":{
-      "enable":true,
-      "duration":4000,
-    },
   };
 
 
@@ -158,29 +142,29 @@ private initilizeData(){
   this.geoMapDataJson =
   {
     "map":{
-        "baseGeoDataUrl":"https://raw.githubusercontent.com/Solgo/js_immigration-data/master/src/countries/AFG.geo.json",
-        "scale":80,
+        "baseGeoDataUrl":"https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson",
+        "scale":150,
         "keyDataName":"features",
         "targetPropertyName":"properties.name",
     },
-    "data":[
-      {
-        "name":"Australia",
-        "color":"green"
-      },
-      {
-        "name":"Antarctica",
-        "color":"white"
-      },
-      {
-        "name":"Japan",
-        "color":"blue"
-      },
-      {
-        "name": "United States",
-        "color": "#0c54c9"
-      }
-    ],
+    // "data":[
+    //   {
+    //     "name":"Australia",
+    //     "color":"green"
+    //   },
+    //   {
+    //     "name":"Antarctica",
+    //     "color":"white"
+    //   },
+    //   {
+    //     "name":"Japan",
+    //     "color":"blue"
+    //   },
+    //   {
+    //     "name": "United States",
+    //     "color": "#0c54c9"
+    //   }
+    //],
   };
   }
 }

@@ -7,8 +7,11 @@
 
 	<div class="tab-pane" id="myTabPage09">
 		<hr>
-		<h2>GeoMap</h2>
-		<app-d3-graph [chartType]="geoMapTypeName" [configData]="configData"  [graphData]="geoMapDataJson" [svgWidth]="'600'" [svgHeight]="'400'"></app-d3-graph>
+		<h2>ImMap</h2>
+    <div class="map-pane">
+      <app-d3-graph [chartType]="geoMapTypeName" [configData]="configData"  [graphData]="geoMapDataJson" [svgWidth]="'1200'" [svgHeight]="'800'"></app-d3-graph>
+
+    </div>
 	</div>
 
 </div>

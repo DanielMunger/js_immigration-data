@@ -80,20 +80,13 @@ export class O2Common {
     }
 
     public get graphWidth(): number {
-        let _margin = this.configData.margin.left
-                     +this.configData.margin.right;
-        if (this.configData.legend.display){
-            _margin += this.configData.legend.totalWidth;
-        }
 
-        return this.svgWidth - _margin;
+        return this.svgWidth
     }
 
     public get graphHeight(): number {
         let _h = this.svgHeight
-                    -this.configData.title.height
-                    -this.configData.margin.top
-                    -this.configData.margin.bottom;
+
         return _h;
     }
 
@@ -321,24 +314,3 @@ export class O2IdValueData {
        ) { }
 
 }
-
-// export class O2KeyValueData {
-//     constructor(
-//        public key: string,
-// 	   public value: number
-//        ) { }
-// }
-
-// export class O2DateKVArrayData {
-//     constructor(
-//        public date: Date,
-// 	   public kvArray: Array<O2KeyValueData>
-//        ) { }
-// }
-
-// export class O2DateStKVArrayData {
-//     constructor(
-//        public dateSt: string,
-// 	   public kvArray: Array<O2KeyValueData>
-//        ) { }
-// }

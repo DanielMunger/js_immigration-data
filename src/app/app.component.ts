@@ -38,13 +38,40 @@ export class AppComponent {
   }
 
   generateData() {
-    this.chartData = [];
-    for (let i = 0; i < (8 + Math.floor(Math.random() * 10)); i++) {
-      this.chartData.push([
-        `Index ${i}`,
-        Math.floor(Math.random() * 100)
-      ]);
-    }
+    // this.chartData = [];
+    // for (let i = 0; i < (8 + Math.floor(Math.random() * 10)); i++) {
+    //   this.chartData.push([
+    //     `Index ${i}`,
+    //     Math.floor(Math.random() * 100)
+    //   ]);
+    // }
+    // console.log(this.chartData)
+
+    this.chartData = [["eighteentwenties", 128502],
+  	["eighteenthirties", 538381],
+  	["eighteenfourties", 1427337],
+  	["eighteenfifties", 2814554],
+  	["eighteensixties", 2081261],
+  	["eighteenseventies", 2742137],
+  	["eighteeneighties", 5248568],
+  	["eighteennineties", 3694294],
+  	["nineteentens", 8202388],
+  	["nineteens", 6347380],
+  	["nineteentwenties", 4295510],
+  	["nineteenthirties", 699375],
+  	["nineteenfourties", 856608],
+  	["nineteenfifties", 2499268],
+  	["nineteensixties", 3213749],
+  	["nineteenseventies", 4248203],
+  	["nineteeneighties", 6244379],
+  	["nineteennineties", 9775398],
+  	["twothousands", 10299430],
+  	["twentyten", 1042625],
+  	["twentyeleven", 1062040],
+  	["twentytwelve", 1031631],
+  	["twentythirteen", 990553],
+  	["twentyfourteen", 1016518],
+  	["twentyfifteen", 1051031]]
   }
 
 

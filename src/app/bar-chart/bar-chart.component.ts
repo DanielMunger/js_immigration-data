@@ -10,7 +10,7 @@ import * as d3 from 'd3';
 export class BarChartComponent implements OnInit, OnChanges {
   @ViewChild('chart') private chartContainer: ElementRef;
   @Input() private data: Array<any>;
-  private margin: any = { top: 20, bottom: 20, left: 20, right: 20};
+  private margin: any = { top: 40, bottom: 40, left: 80, right: 40};
   private chart: any;
   private width: number;
   private height: number;
@@ -57,7 +57,7 @@ export class BarChartComponent implements OnInit, OnChanges {
     this.yScale = d3.scaleLinear().domain(yDomain).range([this.height, 0]);
 
     // bar colors
-    this.colors = d3.scaleLinear().domain([0, this.data.length]).range(<any[]>['red', 'blue']);
+    this.colors = d3.scaleLinear().domain([0, this.data.length]).range(<any[]>['blue', 'blue']);
 
     // x & y axis
     this.xAxis = svg.append('g')

@@ -10,6 +10,7 @@ import { D3GraphComponent } from './d3-graph/d3-graph.component';
 
 import { masterFirebaseConfig } from './api-keys';
 import { AngularFireModule } from 'angularfire2';
+import { BarChartComponent } from './bar-chart/bar-chart.component';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -21,7 +22,8 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    D3GraphComponent
+    D3GraphComponent,
+    BarChartComponent
   ],
   imports: [
     BrowserModule,

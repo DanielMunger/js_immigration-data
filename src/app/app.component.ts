@@ -10,6 +10,8 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 })
 export class AppComponent {
   title = 'app works!';
+  private chartData: Array<any>;
+  ImmigrationDataset: FirebaseListObservable<any[]>;
 
 
 
@@ -20,11 +22,73 @@ export class AppComponent {
   lineTypeName:string;
   geoMapTypeName:string;
 
-  constructor() {
+  constructor(private dataService:DataService) {
 	  this.geoMapTypeName = "geoMap";
 
 		this.initilizeData();
 	}
+
+  ngOnInit() {
+
+  }
+
+  getCountryData(country) {
+
+    var immigrants;
+    this.ImmigrationDataset = this.dataService.getDataNum();
+    this.ImmigrationDataset.subscribe(
+        result => {
+          var currentCountry;
+          var data_array = []
+          immigrants = result;
+          for(var i = 0;  i < immigrants.length; i++) {
+            if(immigrants[i].clr === country) {
+              currentCountry = immigrants[i]
+            }
+          }
+          var keys = Object.keys(currentCountry);
+          keys.forEach(function(key) {
+            var key_value_array = []
+            var value = currentCountry[key]
+            key_value_array.push(key);
+            key_value_array.push(value);
+            data_array.push(key_value_array)
+          })
+          
+          data_array.pop()
+          data_array.pop()
+          data_array.pop()
+          this.chartData = data_array
+
+        })
+
+
+    this.chartData = [["eighteentwenties", 128502],
+  	["eighteenthirties", 538381],
+  	["eighteenfourties", 1427337],
+  	["eighteenfifties", 2814554],
+  	["eighteensixties", 2081261],
+  	["eighteenseventies", 2742137],
+  	["eighteeneighties", 5248568],
+  	["eighteennineties", 3694294],
+  	["nineteentens", 8202388],
+  	["nineteens", 6347380],
+  	["nineteentwenties", 4295510],
+  	["nineteenthirties", 699375],
+  	["nineteenfourties", 856608],
+  	["nineteenfifties", 2499268],
+  	["nineteensixties", 3213749],
+  	["nineteenseventies", 4248203],
+  	["nineteeneighties", 6244379],
+  	["nineteennineties", 9775398],
+  	["twothousands", 10299430],
+  	["twentyten", 1042625],
+  	["twentyeleven", 1062040],
+  	["twentytwelve", 1031631],
+  	["twentythirteen", 990553],
+  	["twentyfourteen", 1016518],
+  	["twentyfifteen", 1051031]]
+  }
 
 
 private initilizeData(){

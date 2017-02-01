@@ -5,3 +5,7 @@ body {
 .map-pane {
   border: 2px black solid;
 }
+
+path.country:hover {
+  fill-opacity: 0.3;
+}

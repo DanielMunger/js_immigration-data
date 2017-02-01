@@ -11,3 +11,9 @@
 .d3-chart .axis text {
   fill: #999;
 }
+
+.country_name {
+  text-align: center;
+  font-size: 30px;
+  
+}

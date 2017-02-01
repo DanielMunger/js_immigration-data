@@ -11,6 +11,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 export class AppComponent {
   title = 'app works!';
   private chartData: Array<any>;
+  private countryName: string
   ImmigrationDataset: FirebaseListObservable<any[]>;
 
 
@@ -46,50 +47,39 @@ export class AppComponent {
               currentCountry = immigrants[i]
             }
           }
-          var keys = Object.keys(currentCountry);
-          keys.forEach(function(key) {
-            var key_value_array = []
-            var value = currentCountry[key]
-            key_value_array.push(key);
-            key_value_array.push(value);
-            data_array.push(key_value_array)
-          })
-          
-          data_array.pop()
-          data_array.pop()
-          data_array.pop()
-          this.chartData = data_array
+          console.log(currentCountry)
+          if (currentCountry === undefined){
+            currentCountry = immigrants[0]
+            this.countryName = "Total"
+          } else {
+            this.countryName = country
+          }
+            var keys = Object.keys(currentCountry);
+            var twentyteens = 0;
 
+            keys.forEach(function(key) {
+              var key_value_array = []
+              if(key === "2010" || key === "2011" || key === "2012" || key === "2013" || key === "2014" || key === "2015" ){
+                twentyteens += currentCountry[key];
+              }else {
+                var value = currentCountry[key]
+                key_value_array.push(key);
+                key_value_array.push(value);
+                data_array.push(key_value_array)
+              }
+            })
+            var twentyteens_array = ["2010s", twentyteens]
+            data_array.pop()
+            data_array.pop()
+            data_array.pop()
+            data_array.push(twentyteens_array)
+            console.log(data_array)
+            this.chartData = data_array
         })
 
 
-    this.chartData = [["eighteentwenties", 128502],
-  	["eighteenthirties", 538381],
-  	["eighteenfourties", 1427337],
-  	["eighteenfifties", 2814554],
-  	["eighteensixties", 2081261],
-  	["eighteenseventies", 2742137],
-  	["eighteeneighties", 5248568],
-  	["eighteennineties", 3694294],
-  	["nineteentens", 8202388],
-  	["nineteens", 6347380],
-  	["nineteentwenties", 4295510],
-  	["nineteenthirties", 699375],
-  	["nineteenfourties", 856608],
-  	["nineteenfifties", 2499268],
-  	["nineteensixties", 3213749],
-  	["nineteenseventies", 4248203],
-  	["nineteeneighties", 6244379],
-  	["nineteennineties", 9775398],
-  	["twothousands", 10299430],
-  	["twentyten", 1042625],
-  	["twentyeleven", 1062040],
-  	["twentytwelve", 1031631],
-  	["twentythirteen", 990553],
-  	["twentyfourteen", 1016518],
-  	["twentyfifteen", 1051031]]
-  }
 
+}
 
 private initilizeData(){
   this.configData ={

@@ -8,7 +8,7 @@
     <div class="map-pane">
 
       <app-d3-graph [configData]="configData"  [graphData]="geoMapDataJson" (changeCountry)="getCountryData($event)"></app-d3-graph>
-			<app-bar-chart *ngIf="chartData" [data]="chartData"></app-bar-chart>
+			<app-bar-chart *ngIf="chartData" [data]="chartData" [countryName]="countryName"></app-bar-chart>
 
     </div>
 	</div>

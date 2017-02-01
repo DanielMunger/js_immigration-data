@@ -12,4 +12,5 @@ export class DataService {
   getData() {
     return this.data;
   }
+
 }

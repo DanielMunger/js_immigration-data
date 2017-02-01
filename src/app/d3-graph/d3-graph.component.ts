@@ -1,4 +1,4 @@
-import { Component,Directive,Input, OnInit,Inject,ElementRef } from '@angular/core';
+import { Component,Directive,Input, OnInit,Inject,ElementRef, EventEmitter } from '@angular/core';
 import {Output,OnChanges, SimpleChange} from '@angular/core';
 import {O2Common,O2LegendData} from './shared/common';
 import {ChartConst} from './shared/chart-const';
@@ -19,6 +19,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
   @Input() svgHeight:string;
   @Input() graphData:Array<number>;
   @Input() configData:any;
+  @Output() changeCountry = new EventEmitter();
 
 
 
@@ -74,7 +75,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
   private buildGeoMap(svgContainer: any, configData:any,dataSetJson: any, svgWidth: number, svgHeight: number, immigrants){
 
 
-        
+
         var countryIterator = 0;
 
         let _maxX = 100; //any value
@@ -146,6 +147,12 @@ export class D3GraphComponent implements OnInit, OnChanges {
                         let _targetArea = eval(_targetProperty);
                         return colorByImmigration(_targetArea);
                     })
+                    .attr("class", "country")
+                    .on('mouseover', (d, i) => {
+                      let _targetArea = (eval(_targetProperty))
+                      this.changeCountry.emit(_targetArea)
+                    })
+
             })
 
 

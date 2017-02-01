@@ -11,6 +11,7 @@ import { AngularFire, FirebaseListObservable } from 'angularfire2';
 export class AppComponent {
   title = 'app works!';
   private chartData: Array<any>;
+  ImmigrationDataset: FirebaseListObservable<any[]>;
 
 
 
@@ -21,31 +22,45 @@ export class AppComponent {
   lineTypeName:string;
   geoMapTypeName:string;
 
-  constructor() {
+  constructor(private dataService:DataService) {
 	  this.geoMapTypeName = "geoMap";
 
 		this.initilizeData();
 	}
 
   ngOnInit() {
-    // give everything a chance to get loaded before starting the animation to reduce choppiness
-    setTimeout(() => {
-      this.generateData();
 
-      // change the data periodically
-      setInterval(() => this.generateData(), 3000);
-    }, 1000);
   }
 
-  generateData() {
-    // this.chartData = [];
-    // for (let i = 0; i < (8 + Math.floor(Math.random() * 10)); i++) {
-    //   this.chartData.push([
-    //     `Index ${i}`,
-    //     Math.floor(Math.random() * 100)
-    //   ]);
-    // }
-    // console.log(this.chartData)
+  getCountryData(country) {
+
+    var immigrants;
+    this.ImmigrationDataset = this.dataService.getDataNum();
+    this.ImmigrationDataset.subscribe(
+        result => {
+          var currentCountry;
+          var data_array = []
+          immigrants = result;
+          for(var i = 0;  i < immigrants.length; i++) {
+            if(immigrants[i].clr === country) {
+              currentCountry = immigrants[i]
+            }
+          }
+          var keys = Object.keys(currentCountry);
+          keys.forEach(function(key) {
+            var key_value_array = []
+            var value = currentCountry[key]
+            key_value_array.push(key);
+            key_value_array.push(value);
+            data_array.push(key_value_array)
+          })
+          data_array.splice(0, 2)
+          data_array.pop()
+          data_array.pop()
+          this.chartData = data_array
+
+        })
+
 
     this.chartData = [["eighteentwenties", 128502],
   	["eighteenthirties", 538381],

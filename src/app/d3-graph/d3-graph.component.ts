@@ -20,7 +20,7 @@ export class D3GraphComponent implements OnInit{
   @Input() graphData:Array<number>;
   @Input() configData:any;
 
-  yearSelected = 1831;
+  yearSelected = 1820;
 
   root: any;
   ImmigrationDataset: FirebaseListObservable<any[]>;
@@ -132,6 +132,57 @@ export class D3GraphComponent implements OnInit{
           }
           if(period < 1900){
             return country.eighteennineties
+          }
+          if(period < 1910){
+            return country.nineteentens
+          }
+          if(period < 1920){
+            return country.nineteens
+          }
+          if(period < 1930){
+            return country.nineteentwenties
+          }
+          if(period < 1940){
+            return country.nineteenthirties
+          }
+          if(period < 1950){
+            return country.nineteenfourties
+          }
+          if(period < 1960){
+            return country.nineteenfifties
+          }
+          if(period < 1970){
+            return country.nineteensixties
+          }
+          if(period < 1980){
+            return country.nineteenseventies
+          }
+          if(period < 1990){
+            return country.nineteeneighties
+          }
+          if(period < 2000){
+            return country.nineteennineties
+          }
+          if(period < 2010){
+            return country.twothousands
+          }
+          if(period = 2010){
+            return country.twentyten
+          }
+          if(period = 2011){
+            return country.twentyeleven
+          }
+          if(period = 2012){
+            return country.twentytwelve
+          }
+          if(period = 2013){
+            return country.twentythirteen
+          }
+          if(period = 2014){
+            return country.twentyfourteen
+          }
+          if(period = 2015){
+            return country.twentyfifteen
           }
         }
 

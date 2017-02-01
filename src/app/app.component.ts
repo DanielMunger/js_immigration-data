@@ -54,7 +54,8 @@ export class AppComponent {
             key_value_array.push(value);
             data_array.push(key_value_array)
           })
-          data_array.splice(0, 2)
+          
+          data_array.pop()
           data_array.pop()
           data_array.pop()
           this.chartData = data_array

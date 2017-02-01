@@ -55,26 +55,13 @@ export class D3GraphComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-    //
-    // let svgWidth = parseInt(this.svgWidth);
-    // let svgHeight = parseInt(this.svgHeight);
-    // let dataSet = this.graphData;
-    // let configData = this.configData;
-    // let chartType = this.chartType;
-    // let svgContainer = this.root.append("svg")
-    //           .attr("width", svgWidth)
-    //           .attr("height", svgHeight);
-    //
-    // console.log(chartType);
-    //
-    // this.buildGeoMap(svgContainer,configData, dataSet,svgWidth,svgHeight);
 
   }
 
   private buildGeoMap(svgContainer: any, configData:any,dataSetJson: any, svgWidth: number, svgHeight: number, immigrants){
 
 
-        
+
         var countryIterator = 0;
 
         let _maxX = 100; //any value
@@ -96,15 +83,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
                         .scale(_scale)
                     )
 
-        // let _findColorByName = (name:string):string => {
-        //     for (let i in dataSetJson.data){
-        //         if (name ==dataSetJson.data[i].name){
-        //             let _color = dataSetJson.data[i].color;
-        //             return _color;
-        //         }
-        //     }
-        //     return null;
-        // }
+        
         function colorByImmigration(country)
         {
             var inDB = false;

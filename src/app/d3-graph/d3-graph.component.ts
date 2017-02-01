@@ -13,18 +13,19 @@ import * as d3 from 'd3';
   styleUrls: ['./d3-graph.component.css'],
   providers: [DataService]
 })
-export class D3GraphComponent implements OnInit, OnChanges {
-  @Input() chartType:string;
-  @Input() svgWidth:string;
-  @Input() svgHeight:string;
+export class D3GraphComponent implements OnInit{
+  chartType = "geoMapType";
+  svgWidth = "1200";
+  svgHeight = "800";
   @Input() graphData:Array<number>;
   @Input() configData:any;
   @Output() changeCountry = new EventEmitter();
 
-
+  yearSelected = 1820;
 
   root: any;
   ImmigrationDataset: FirebaseListObservable<any[]>;
+  immigrants;
 
   constructor(private dataService: DataService, elementRef: ElementRef )
   {
@@ -33,48 +34,39 @@ export class D3GraphComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
-    var immigrants;
+
     this.ImmigrationDataset = this.dataService.getData();
-    console.log(this.ImmigrationDataset)
+
     this.ImmigrationDataset.subscribe(
         result => {
-          immigrants = result;
-          console.log("ONinit:", (immigrants));
+          this.immigrants = result;
+
           let svgWidth = parseInt(this.svgWidth);
           let svgHeight = parseInt(this.svgHeight);
-          let dataSet = this.graphData;
+          var dataSet = this.graphData;
           let configData = this.configData;
           let chartType = this.chartType;
-          let svgContainer = this.root.append("svg")
-                    .attr("width", svgWidth)
-                    .attr("height", svgHeight);
 
-          console.log(chartType);
 
-          this.buildGeoMap(svgContainer,configData, dataSet,svgWidth,svgHeight, immigrants);
+
+          this.buildGeoMap(configData, dataSet,svgWidth,svgHeight, this.immigrants, this.yearSelected);
         });
   }
 
-  ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
-    //
-    // let svgWidth = parseInt(this.svgWidth);
-    // let svgHeight = parseInt(this.svgHeight);
-    // let dataSet = this.graphData;
-    // let configData = this.configData;
-    // let chartType = this.chartType;
-    // let svgContainer = this.root.append("svg")
-    //           .attr("width", svgWidth)
-    //           .attr("height", svgHeight);
-    //
-    // console.log(chartType);
-    //
-    // this.buildGeoMap(svgContainer,configData, dataSet,svgWidth,svgHeight);
-
+  private clearSVG()
+  {
+    d3.select("svg").remove();
   }
+  private buildGeoMap(configData:any,dataSetJson: any, svgWidth: number, svgHeight: number, immigrants, inputYearSelected){
 
-  private buildGeoMap(svgContainer: any, configData:any,dataSetJson: any, svgWidth: number, svgHeight: number, immigrants){
+        var svgContainer = this.root.append("svg")
+              .attr("width", svgWidth)
+              .attr("height", svgHeight);
+        if(immigrants===null)
+        {immigrants=this.immigrants}
 
 
+        var yearSelected = inputYearSelected;
 
         var countryIterator = 0;
 
@@ -97,44 +89,125 @@ export class D3GraphComponent implements OnInit, OnChanges {
                         .scale(_scale)
                     )
 
-        // let _findColorByName = (name:string):string => {
-        //     for (let i in dataSetJson.data){
-        //         if (name ==dataSetJson.data[i].name){
-        //             let _color = dataSetJson.data[i].color;
-        //             return _color;
-        //         }
-        //     }
-        //     return null;
-        // }
-        function colorByImmigration(country)
+
+        function colorByImmigration(country, yearSelected)
         {
             var inDB = false;
             var index = null;
 
             for(var i = 0; i < immigrants.length; i++)
             {
-                if(country == immigrants[i].clr){
-                    inDB = true;
-                    index = i;
-                }
+              if(country == immigrants[i].clr){
+                  inDB = true;
+                  index = i;
+              }
             }
-                if(inDB){
-                    return immigrationIntensity(immigrants[index].nineteenfourties);
-                }
-                else{
-                    return "black";
-                }
+              if(inDB){
+                  return immigrationIntensity(returnDataByPeriod(immigrants[index], yearSelected));
+              }
+              else{
+                  return "black";
+              }
 
+        }
+
+        function returnDataByPeriod(country, period){
+          if(period < 1830){
+            return country.eighteentwenties;
+          }
+          if(period < 1840){
+            return country.eighteenthirties;
+          }
+          if(period < 1850){
+            return country.eighteenfourties
+          }
+          if(period < 1860){
+            return country.eighteenfifties
+          }
+          if(period < 1870){
+            return country.eighteensixties
+          }
+          if(period < 1880){
+            return country.eighteenseventies
+          }
+          if(period < 1890){
+            return country.eighteeneighties
+          }
+          if(period < 1900){
+            return country.eighteennineties
+          }
+          if(period < 1910){
+            return country.nineteentens
+          }
+          if(period < 1920){
+            return country.nineteens
+          }
+          if(period < 1930){
+            return country.nineteentwenties
+          }
+          if(period < 1940){
+            return country.nineteenthirties
+          }
+          if(period < 1950){
+            return country.nineteenfourties
+          }
+          if(period < 1960){
+            return country.nineteenfifties
+          }
+          if(period < 1970){
+            return country.nineteensixties
+          }
+          if(period < 1980){
+            return country.nineteenseventies
+          }
+          if(period < 1990){
+            return country.nineteeneighties
+          }
+          if(period < 2000){
+            return country.nineteennineties
+          }
+          if(period < 2010){
+            return country.twothousands
+          }
+          if(period = 2010){
+            return country.twentyten
+          }
+          if(period = 2011){
+            return country.twentyeleven
+          }
+          if(period = 2012){
+            return country.twentytwelve
+          }
+          if(period = 2013){
+            return country.twentythirteen
+          }
+          if(period = 2014){
+            return country.twentyfourteen
+          }
+          if(period = 2015){
+            return country.twentyfifteen
+          }
         }
 
         function immigrationIntensity(input){
-            if(input > 10000){
-                return "red";
-            }
-            else{
-                return "blue";
-            }
+          if(input < 500){
+            return "#f7fcfd";
+        } else if (input < 5000 && input >= 500){
+          return "#e5f5f9"
+        } else if (input < 30000){
+          return "#ccece6"
+        }else if (input < 100000){
+          return "#99d8c9"
+        }else if (input < 300000){
+          return "#66c2a4"
+        }else if (input < 1000000){
+          return "#41ae76"
+        }else if (input < 2000000){
+          return "#238b45"
+        }else {
+          return "#006d2c"
         }
+    }
 
 
         d3.json(_geoMapDataUrl,(error,data) =>{
@@ -145,8 +218,9 @@ export class D3GraphComponent implements OnInit, OnChanges {
                     .attr("d",path)
                     .style("fill",(d,i) => {
                         let _targetArea = eval(_targetProperty);
-                        return colorByImmigration(_targetArea);
+                        return colorByImmigration(_targetArea, yearSelected);
                     })
+
                     .attr("class", "country")
                     .on('mouseover', (d, i) => {
                       let _targetArea = (eval(_targetProperty))
@@ -155,6 +229,8 @@ export class D3GraphComponent implements OnInit, OnChanges {
 
             })
 
+
+                })
 
         // ------------------------------------
         // ---CALL buildLegend-----------------

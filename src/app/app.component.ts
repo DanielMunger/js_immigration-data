@@ -212,25 +212,7 @@ private initilizeData(){
         "scale":150,
         "keyDataName":"features",
         "targetPropertyName":"properties.ADMIN",
-    },
-    "data":[
-      {
-        "name":"Australia",
-        "color":"black"
-      },
-      {
-        "name":"Antarctica",
-        "color":"white"
-      },
-      {
-        "name":"Japan",
-        "color":"blue"
-      },
-      {
-        "name": "United States",
-        "color": "pink"
-      }
-    ],
+    }
   };
   }
 }

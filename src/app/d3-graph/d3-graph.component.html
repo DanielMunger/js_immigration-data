@@ -6,4 +6,11 @@
     </p>
     <svg style="background-color:black;"></svg>
 </div> -->
-<button>Button</button>
+  <div data-role="slider-header">
+    <h1>Select Year</h1>
+  </div>
+
+  <div data-role="main" class="ui-content">
+      {{yearSelected}}
+      <input [(ngModel)]="yearSelected" (change)="clearSVG(); buildGeoMap(configData, graphData, svgWidth, svgHeight, immigrants, yearSelected)" type="range" min="1820" max="2015">
+</div>

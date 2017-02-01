@@ -13,14 +13,14 @@ import * as d3 from 'd3';
   styleUrls: ['./d3-graph.component.css'],
   providers: [DataService]
 })
-export class D3GraphComponent implements OnInit, OnChanges {
+export class D3GraphComponent implements OnInit{
   @Input() chartType:string;
   @Input() svgWidth:string;
   @Input() svgHeight:string;
   @Input() graphData:Array<number>;
   @Input() configData:any;
 
-
+  yearSelected = 1831;
 
   root: any;
   ImmigrationDataset: FirebaseListObservable<any[]>;
@@ -32,6 +32,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+
     var immigrants;
     this.ImmigrationDataset = this.dataService.getData();
     console.log(this.ImmigrationDataset)
@@ -50,18 +51,15 @@ export class D3GraphComponent implements OnInit, OnChanges {
 
           console.log(chartType);
 
-          this.buildGeoMap(svgContainer,configData, dataSet,svgWidth,svgHeight, immigrants);
+          this.buildGeoMap(svgContainer,configData, dataSet,svgWidth,svgHeight, immigrants, this.yearSelected);
         });
   }
 
-  ngOnChanges(changes: {[propertyName: string]: SimpleChange}) {
 
-  }
-
-  private buildGeoMap(svgContainer: any, configData:any,dataSetJson: any, svgWidth: number, svgHeight: number, immigrants){
+  private buildGeoMap(svgContainer: any, configData:any,dataSetJson: any, svgWidth: number, svgHeight: number, immigrants, inputYearSelected){
 
 
-
+        var yearSelected = inputYearSelected;
         var countryIterator = 0;
 
         let _maxX = 100; //any value
@@ -83,36 +81,74 @@ export class D3GraphComponent implements OnInit, OnChanges {
                         .scale(_scale)
                     )
 
-        
-        function colorByImmigration(country)
+
+        function colorByImmigration(country, yearSelected)
         {
             var inDB = false;
             var index = null;
 
             for(var i = 0; i < immigrants.length; i++)
             {
-                if(country == immigrants[i].clr){
-                    inDB = true;
-                    index = i;
-                }
+              if(country == immigrants[i].clr){
+                  inDB = true;
+                  index = i;
+              }
             }
-                if(inDB){
-                    return immigrationIntensity(immigrants[index].nineteenfourties);
-                }
-                else{
-                    return "black";
-                }
+              if(inDB){
+                  return immigrationIntensity(returnDataByPeriod(immigrants[index], yearSelected));
+              }
+              else{
+                  return "black";
+              }
 
+        }
+
+        function returnDataByPeriod(country, period){
+          if(period < 1830){
+            return country.eighteentwenties;
+          }
+          if(period < 1840){
+            return country.eighteenthirties;
+          }
+          if(period < 1850){
+            return country.eighteenfourties
+          }
+          if(period < 1860){
+            return country.eighteenfifties
+          }
+          if(period < 1870){
+            return country.eighteensixties
+          }
+          if(period < 1880){
+            return country.eighteenseventies
+          }
+          if(period < 1890){
+            return country.eighteeneighties
+          }
+          if(period < 1900){
+            return country.eighteennineties
+          }
         }
 
         function immigrationIntensity(input){
-            if(input > 10000){
-                return "red";
-            }
-            else{
-                return "blue";
-            }
+          if(input < 500){
+            return "#f7fcfd";
+        } else if (input < 5000 && input >= 500){
+          return "#e5f5f9"
+        } else if (input < 30000){
+          return "#ccece6"
+        }else if (input < 100000){
+          return "#99d8c9"
+        }else if (input < 300000){
+          return "#66c2a4"
+        }else if (input < 1000000){
+          return "#41ae76"
+        }else if (input < 2000000){
+          return "#238b45"
+        }else {
+          return "#006d2c"
         }
+    }
 
 
         d3.json(_geoMapDataUrl,(error,data) =>{
@@ -123,10 +159,10 @@ export class D3GraphComponent implements OnInit, OnChanges {
                     .attr("d",path)
                     .style("fill",(d,i) => {
                         let _targetArea = eval(_targetProperty);
-                        return colorByImmigration(_targetArea);
+                        return colorByImmigration(_targetArea, yearSelected);
                     })
-            })
 
+                })
 
         // ------------------------------------
         // ---CALL buildLegend-----------------

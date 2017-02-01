@@ -74,7 +74,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
   private buildGeoMap(svgContainer: any, configData:any,dataSetJson: any, svgWidth: number, svgHeight: number, immigrants){
 
 
-        console.log("in buildGeoMap -------------------");
+        
         var countryIterator = 0;
 
         let _maxX = 100; //any value
@@ -169,7 +169,7 @@ export class D3GraphComponent implements OnInit, OnChanges {
 
     private buildLegend(o2Common: any,_legendDataSet: any):void{
 
-        console.log("in buildLegend-------------------");
+
 
         // maxValues are meaningless
 

@@ -12,5 +12,5 @@
 
   <div data-role="main" class="ui-content">
       {{yearSelected}}
-      <input [(ngModel)]="yearSelected" type="range" value="1880" min="1880" max="2017">
+      <input [(ngModel)]="yearSelected" (change)="clearSVG(); buildGeoMap(configData, graphData, svgWidth, svgHeight, immigrants, yearSelected)" type="range" min="1820" max="2017">
 </div>

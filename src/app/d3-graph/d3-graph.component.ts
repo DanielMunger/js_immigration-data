@@ -14,9 +14,9 @@ import * as d3 from 'd3';
   providers: [DataService]
 })
 export class D3GraphComponent implements OnInit{
-  @Input() chartType:string;
-  @Input() svgWidth:string;
-  @Input() svgHeight:string;
+  chartType = "geoMapType";
+  svgWidth = "1200";
+  svgHeight = "800";
   @Input() graphData:Array<number>;
   @Input() configData:any;
 
@@ -24,6 +24,7 @@ export class D3GraphComponent implements OnInit{
 
   root: any;
   ImmigrationDataset: FirebaseListObservable<any[]>;
+  immigrants;
 
   constructor(private dataService: DataService, elementRef: ElementRef )
   {
@@ -33,31 +34,35 @@ export class D3GraphComponent implements OnInit{
 
   ngOnInit() {
 
-    var immigrants;
     this.ImmigrationDataset = this.dataService.getData();
-    console.log(this.ImmigrationDataset)
+
     this.ImmigrationDataset.subscribe(
         result => {
-          immigrants = result;
-          console.log("ONinit:", (immigrants));
+          this.immigrants = result;
+
           let svgWidth = parseInt(this.svgWidth);
           let svgHeight = parseInt(this.svgHeight);
-          let dataSet = this.graphData;
+          var dataSet = this.graphData;
           let configData = this.configData;
           let chartType = this.chartType;
-          let svgContainer = this.root.append("svg")
-                    .attr("width", svgWidth)
-                    .attr("height", svgHeight);
 
-          console.log(chartType);
 
-          this.buildGeoMap(svgContainer,configData, dataSet,svgWidth,svgHeight, immigrants, this.yearSelected);
+
+          this.buildGeoMap(configData, dataSet,svgWidth,svgHeight, this.immigrants, this.yearSelected);
         });
   }
 
+  private clearSVG()
+  {
+    d3.select("svg").remove();
+  }
+  private buildGeoMap(configData:any,dataSetJson: any, svgWidth: number, svgHeight: number, immigrants, inputYearSelected){
 
-  private buildGeoMap(svgContainer: any, configData:any,dataSetJson: any, svgWidth: number, svgHeight: number, immigrants, inputYearSelected){
-
+        var svgContainer = this.root.append("svg")
+              .attr("width", svgWidth)
+              .attr("height", svgHeight);
+        if(immigrants===null)
+        {immigrants=this.immigrants}
 
         var yearSelected = inputYearSelected;
         var countryIterator = 0;

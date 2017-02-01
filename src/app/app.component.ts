@@ -54,7 +54,7 @@ export class AppComponent {
             key_value_array.push(value);
             data_array.push(key_value_array)
           })
-          
+
           data_array.pop()
           data_array.pop()
           data_array.pop()

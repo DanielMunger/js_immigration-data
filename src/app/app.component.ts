@@ -54,7 +54,7 @@ export class AppComponent {
             this.countryName = "Total"
           } else {
             this.countryName = country
-          
+
           }
             var keys = Object.keys(currentCountry);
             var twentyteens = 0;
@@ -75,22 +75,7 @@ export class AppComponent {
             data_array.pop()
             data_array.pop()
             data_array.push(twentyteens_array)
-            console.log(data_array)
             this.chartData = data_array
-
-          var keys = Object.keys(currentCountry);
-          keys.forEach(function(key) {
-            var key_value_array = []
-            var value = currentCountry[key]
-            key_value_array.push(key);
-            key_value_array.push(value);
-            data_array.push(key_value_array)
-          })
-
-          data_array.pop()
-          data_array.pop()
-          data_array.pop()
-          this.chartData = data_array
 
         })
 

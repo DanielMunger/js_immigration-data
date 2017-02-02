@@ -110,7 +110,7 @@ export class D3GraphComponent implements OnInit{
                   return immigrationIntensity(returnDataByPeriod(immigrants[index], yearSelected));
               }
               else{
-                  return "#778899";
+                  return "#B7C3D0";
               }
 
         }

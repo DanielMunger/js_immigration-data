@@ -1,16 +1,12 @@
 
-<!-- <div *ngFor="let data of dataset | async">
-    <p>
-      {{data.clr}}
-      {{data.eighteensixties}}
-    </p>
-    <svg style="background-color:black;"></svg>
-</div> -->
   <div data-role="slider-header">
-    <h1>Select Year</h1>
+    <h5>Select Year:</h5>
   </div>
 
   <div data-role="main" class="ui-content">
       {{yearSelected}}
       <input [(ngModel)]="yearSelected" (change)="clearSVG(); buildGeoMap(configData, graphData, svgWidth, svgHeight, immigrants, yearSelected)" type="range" min="1820" max="2015">
-</div>
+  </div>
+  <div class="">
+
+  </div>

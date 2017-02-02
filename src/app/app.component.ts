@@ -47,6 +47,7 @@ export class AppComponent {
               currentCountry = immigrants[i]
             }
           }
+
           console.log(currentCountry)
           if (currentCountry === undefined){
             currentCountry = immigrants[0]
@@ -75,6 +76,21 @@ export class AppComponent {
             data_array.push(twentyteens_array)
             console.log(data_array)
             this.chartData = data_array
+
+          var keys = Object.keys(currentCountry);
+          keys.forEach(function(key) {
+            var key_value_array = []
+            var value = currentCountry[key]
+            key_value_array.push(key);
+            key_value_array.push(value);
+            data_array.push(key_value_array)
+          })
+
+          data_array.pop()
+          data_array.pop()
+          data_array.pop()
+          this.chartData = data_array
+
         })
 
 
@@ -198,7 +214,7 @@ private initilizeData(){
   this.geoMapDataJson =
   {
     "map":{
-        "baseGeoDataUrl":"https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson",
+        "baseGeoDataUrl":"https://raw.githubusercontent.com/Solgo/js_immigration-data/munger-1/src/geographies.geojson",
         "scale":150,
         "keyDataName":"features",
         "targetPropertyName":"properties.ADMIN",

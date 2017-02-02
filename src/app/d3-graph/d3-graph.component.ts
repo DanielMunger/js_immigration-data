@@ -27,6 +27,9 @@ export class D3GraphComponent implements OnInit{
   ImmigrationDataset: FirebaseListObservable<any[]>;
   immigrants;
 
+  _maxX = 100; //any value
+  _maxY = 100; //any value
+
   constructor(private dataService: DataService, elementRef: ElementRef )
   {
     let el:HTMLElement = elementRef.nativeElement;
@@ -57,17 +60,17 @@ export class D3GraphComponent implements OnInit{
   {
     d3.select("svg").remove();
   }
-  private buildGeoMap(configData:any,dataSetJson: any, svgWidth: number, svgHeight: number, immigrants, inputYearSelected){
+  private buildGeoMap(configData:any, dataSetJson: any, svgWidth: number, svgHeight: number, immigrants, inputYearSelected){
 
         var svgContainer = this.root.append("svg")
-              .attr("width", svgWidth)
-              .attr("height", svgHeight);
+              //  .attr("viewbox", "0,0,100,100")
+                .attr("width", svgWidth)
+                .attr("height", svgHeight);
         if(immigrants===null)
         {immigrants=this.immigrants}
 
 
         var yearSelected = inputYearSelected;
-
         var countryIterator = 0;
 
         let _maxX = 100; //any value
@@ -75,12 +78,12 @@ export class D3GraphComponent implements OnInit{
         let cdt = new O2Common(svgContainer,configData,_maxX,_maxY,svgWidth,svgHeight);
         let _graphCenterPos = cdt.graphCenterPos;
         let _geoMapDataUrl =  dataSetJson.map.baseGeoDataUrl;
+
         let _scale = dataSetJson.map.scale;
         let _keyDataName = dataSetJson.map.keyDataName;
         let _keyName = "data."+_keyDataName;
         let _targetProperty = "d."+dataSetJson.map.targetPropertyName;
-        //let _antarcticaColor = dataSetJson.map.antarcticaColor;
-        let _legendDisplay = configData.legend.display
+
 
         let path = d3.geoPath()
                     .projection(
@@ -94,9 +97,10 @@ export class D3GraphComponent implements OnInit{
         {
             var inDB = false;
             var index = null;
-
+            if(country === "United States of America")return "#0D4F8B";
             for(var i = 0; i < immigrants.length; i++)
             {
+
               if(country == immigrants[i].clr){
                   inDB = true;
                   index = i;
@@ -106,7 +110,7 @@ export class D3GraphComponent implements OnInit{
                   return immigrationIntensity(returnDataByPeriod(immigrants[index], yearSelected));
               }
               else{
-                  return "black";
+                  return "#778899";
               }
 
         }
@@ -226,82 +230,25 @@ export class D3GraphComponent implements OnInit{
                       let _targetArea = (eval(_targetProperty))
                       this.changeCountry.emit(_targetArea)
                     })
-
             })
-
-
-                })
-
-        // ------------------------------------
-        // ---CALL buildLegend-----------------
-        if (_legendDisplay){
-            let _legendDataSet :Array<O2LegendData> = new Array();
-            for (let i in dataSetJson.data) {
-                let _name = dataSetJson.data[i].name;
-                let _color = dataSetJson.data[i].color;
-                if (_name== "Antarctica"){
-                    continue;
-                }
-                _legendDataSet.push(new O2LegendData(dataSetJson.data[i].name,dataSetJson.data[i].color));
-            }
-            this.buildLegend(cdt,_legendDataSet);
-        }
-
-
     }
 
-    private buildLegend(o2Common: any,_legendDataSet: any):void{
+    // private getNewColors(yearSelected) {
+    //
+    //   d3.selectAll("path")
+    //         .data(eval(_keyName))
+    //         .append("path")
+    //         .attr("d",path)
+    //         .style("fill",(d,i) => {
+    //             let _targetArea = eval(_targetProperty);
+    //             return colorByImmigration(_targetArea, yearSelected);
+    //         })
+    //       }
+    //
 
 
 
-        // maxValues are meaningless
-
-        let cdt = o2Common;
-        let configData = cdt.configData;
-        let svgContainer = cdt.svgContainer;
-        // let cdt = new O2Common(configData,100,100,svgWidth,svgHeight);
-
-        let legendRectSize = configData.legend.rectWidth;
-        let legendSpacing = 10;
-        let ySpacing = configData.legend.ySpacing;
-        let initPosX = cdt.legendInitXPos;
-        let initPosY = cdt.legendInitYPos;
-        let opacity = configData.color.opacity;
 
 
-        let grpLegend = svgContainer.append("g")
-                    .selectAll("g")
-                    .data(_legendDataSet)
-                    .enter()
-                    .append("g")
-                    .attr("class","legend")
-                    .attr("transform",(d:O2LegendData,i) =>{
-                    let height = legendRectSize+ySpacing;
-                    let x = initPosX;
-                    let y = i * height+initPosY ;
-                    return "translate(" +x+", "+y+")";
-                    });
-
-        grpLegend.append("rect")
-            .attr("width",legendRectSize)
-            .attr("height",legendRectSize)
-            .style("fill",(d:O2LegendData,i) =>{
-                return d.color;
-            })
-            .style("stroke",(d:O2LegendData,i) =>{
-                return d.color;
-            })
-            .attr("fill-opacity", opacity);
-
-
-        grpLegend.append("text")
-            .attr("x",legendRectSize+legendSpacing)
-            .attr("y",legendRectSize)
-            .text((d:O2LegendData,i) =>{
-                return d.title;
-            })
-
-
-    }
 
 }

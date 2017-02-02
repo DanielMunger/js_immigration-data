@@ -54,7 +54,7 @@ export class AppComponent {
             key_value_array.push(value);
             data_array.push(key_value_array)
           })
-          
+
           data_array.pop()
           data_array.pop()
           data_array.pop()
@@ -208,7 +208,7 @@ private initilizeData(){
   this.geoMapDataJson =
   {
     "map":{
-        "baseGeoDataUrl":"https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson",
+        "baseGeoDataUrl":"https://raw.githubusercontent.com/Solgo/js_immigration-data/munger-1/src/geographies.geojson",
         "scale":150,
         "keyDataName":"features",
         "targetPropertyName":"properties.ADMIN",

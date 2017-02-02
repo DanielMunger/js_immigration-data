@@ -230,7 +230,7 @@ export class D3GraphComponent implements OnInit{
                       let _targetArea = (eval(_targetProperty))
                       this.changeCountry.emit(_targetArea)
                     })
-            })
+
     }
 
     // private getNewColors(yearSelected) {

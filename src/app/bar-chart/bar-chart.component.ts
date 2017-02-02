@@ -10,6 +10,7 @@ import * as d3 from 'd3';
 export class BarChartComponent implements OnInit, OnChanges {
   @ViewChild('chart') private chartContainer: ElementRef;
   @Input() private data: Array<any>;
+  @Input() private countryName: string
   private margin: any = { top: 40, bottom: 40, left: 80, right: 40};
   private chart: any;
   private width: number;

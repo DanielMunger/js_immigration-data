@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { DataService } from './data.service';
 import { AngularFire, FirebaseListObservable } from 'angularfire2';
 
@@ -13,21 +13,13 @@ export class AppComponent {
   private chartData: Array<any>;
   private countryName: string
   ImmigrationDataset: FirebaseListObservable<any[]>;
-
-
-
   chartType:string;
 	configData:any;
   geoMapDataJson:any;
-
   lineTypeName:string;
   geoMapTypeName:string;
 
   constructor(private dataService:DataService) {
 	}
-
-  ngOnInit() {
-
-  }
 
 }

@@ -93,6 +93,7 @@ export class D3GraphComponent implements OnInit{
             var inDB = false;
             var index = null;
             if(country === "United States of America")return "#0D4F8B";
+          
             for(var i = 0; i < immigrants.length; i++)
             {
 

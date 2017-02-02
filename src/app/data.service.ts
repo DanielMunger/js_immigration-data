@@ -19,9 +19,7 @@ export class DataService {
     return this.dataNum;
   }
 
-
   getDataById() {
 
   }
-
 }

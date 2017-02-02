@@ -43,15 +43,11 @@ export class D3GraphComponent implements OnInit{
     this.ImmigrationDataset.subscribe(
         result => {
           this.immigrants = result;
-
           let svgWidth = parseInt(this.svgWidth);
           let svgHeight = parseInt(this.svgHeight);
           var dataSet = this.graphData;
           let configData = this.configData;
           let chartType = this.chartType;
-
-
-
           this.buildGeoMap(configData, dataSet,svgWidth,svgHeight, this.immigrants, this.yearSelected);
         });
   }
@@ -63,9 +59,7 @@ export class D3GraphComponent implements OnInit{
   private buildGeoMap(configData:any, dataSetJson: any, svgWidth: number, svgHeight: number, immigrants, inputYearSelected){
 
         var svgContainer = this.root.append("svg")
-              //  .attr("viewbox", "0,0,100,100")
-                .attr("width", svgWidth)
-                .attr("height", svgHeight);
+                .attr("viewBox", "0 0 1200 800");
         if(immigrants===null)
         {immigrants=this.immigrants}
 

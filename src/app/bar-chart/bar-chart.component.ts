@@ -36,18 +36,24 @@ export class BarChartComponent implements OnInit, OnChanges {
     }
   }
 
+  onResize() {
+    d3.select("#bar-chart-svg").remove();
+    this.createChart();
+  }
+
   createChart() {
     let element = this.chartContainer.nativeElement;
     this.width = element.offsetWidth - this.margin.left - this.margin.right;
     this.height = element.offsetHeight - this.margin.top - this.margin.bottom;
     let svg = d3.select(element).append('svg')
       .attr('width', element.offsetWidth)
-      .attr('height', element.offsetHeight);
+      .attr('height', element.offsetHeight)
+      .attr("id", "bar-chart-svg")
 
     // chart plot area
     this.chart = svg.append('g')
       .attr('class', 'bars')
-      .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`);
+      .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`)
 
     // define X & Y domains
     let xDomain = this.data.map(d => d[0]);

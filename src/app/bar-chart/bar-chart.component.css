@@ -1,7 +1,9 @@
 .d3-chart {
   width: 100%;
   height: 400px;
+  margin-top: -4.5%;
 }
+
 
 .d3-chart .axis path,
 .d3-chart .axis line {
@@ -15,5 +17,5 @@
 .country_name {
   text-align: center;
   font-size: 30px;
-  
+  margin-top: -12%;
 }

@@ -231,8 +231,9 @@ export class D3GraphComponent implements OnInit{
                       this.changeCountry.emit(_targetArea)
                     })
 
-    }
-
+    })
+  }
+}
     // private getNewColors(yearSelected) {
     //
     //   d3.selectAll("path")
@@ -245,10 +246,3 @@ export class D3GraphComponent implements OnInit{
     //         })
     //       }
     //
-
-
-
-
-
-
-}

@@ -54,6 +54,7 @@ export class AppComponent {
             this.countryName = "Total"
           } else {
             this.countryName = country
+          
           }
             var keys = Object.keys(currentCountry);
             var twentyteens = 0;

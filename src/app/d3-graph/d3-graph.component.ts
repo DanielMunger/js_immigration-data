@@ -32,6 +32,7 @@ export class D3GraphComponent implements OnInit{
 
   constructor(private dataService: DataService, elementRef: ElementRef )
   {
+    console.log("graphing")
     let el:HTMLElement = elementRef.nativeElement;
     this.root = d3.select(el);
   }

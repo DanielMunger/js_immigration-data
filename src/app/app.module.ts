@@ -5,12 +5,14 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { D3GraphComponent } from './d3-graph/d3-graph.component';
-
+import { routing } from './app.routing';
 
 
 import { masterFirebaseConfig } from './api-keys';
 import { AngularFireModule } from 'angularfire2';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
+import { SplashComponent } from './splash/splash.component';
+import { MapViewerComponent } from './map-viewer/map-viewer.component';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -23,13 +25,16 @@ export const firebaseConfig = {
   declarations: [
     AppComponent,
     D3GraphComponent,
-    BarChartComponent
+    BarChartComponent,
+    SplashComponent,
+    MapViewerComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule,
-    AngularFireModule.initializeApp(firebaseConfig)
+    AngularFireModule.initializeApp(firebaseConfig),
+    routing
   ],
 
   bootstrap: [AppComponent]

@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from './data.service';
-import { AngularFire, FirebaseListObservable } from 'angularfire2';
-
+import { DataService } from '../data.service';
+import { FirebaseListObservable, AngularFire } from 'angularfire2';
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
+  selector: 'app-map-viewer',
+  templateUrl: './map-viewer.component.html',
+  styleUrls: ['./map-viewer.component.css'],
   providers: [DataService]
 })
-export class AppComponent {
-  title = 'app works!';
-  private chartData: Array<any>;
-  private countryName: string
+export class MapViewerComponent implements OnInit {
+  public chartData: Array<any>;
+  public countryName: string
   ImmigrationDataset: FirebaseListObservable<any[]>;
 
 
@@ -23,65 +21,11 @@ export class AppComponent {
   lineTypeName:string;
   geoMapTypeName:string;
 
-  constructor(private dataService:DataService) {
-	}
+  constructor(private dataService: DataService) { 
+        console.log("Mapviewer");
 
-  ngOnInit() {
-
-  }
-
-  getCountryData(country) {
-
-    var immigrants;
-    this.ImmigrationDataset = this.dataService.getDataNum();
-    this.ImmigrationDataset.subscribe(
-        result => {
-          var currentCountry;
-          var data_array = []
-          immigrants = result;
-          for(var i = 0;  i < immigrants.length; i++) {
-            if(immigrants[i].clr === country) {
-              currentCountry = immigrants[i]
-            }
-          }
-
-          console.log(currentCountry)
-          if (currentCountry === undefined){
-            currentCountry = immigrants[0]
-            this.countryName = "Total"
-          } else {
-            this.countryName = country
-
-          }
-            var keys = Object.keys(currentCountry);
-            var twentyteens = 0;
-
-            keys.forEach(function(key) {
-              var key_value_array = []
-              if(key === "2010" || key === "2011" || key === "2012" || key === "2013" || key === "2014" || key === "2015" ){
-                twentyteens += currentCountry[key];
-              }else {
-                var value = currentCountry[key]
-                key_value_array.push(key);
-                key_value_array.push(value);
-                data_array.push(key_value_array)
-              }
-            })
-            var twentyteens_array = ["2010s", twentyteens]
-            data_array.pop()
-            data_array.pop()
-            data_array.pop()
-            data_array.push(twentyteens_array)
-            this.chartData = data_array
-
-        })
-
-
-
-}
-
-private initilizeData(){
-  this.configData ={
+      this.geoMapTypeName = "geoMap";
+        this.configData = {
     "className":{
       "axis":"axis",
       "axisXBorder":"axis_x",
@@ -190,10 +134,6 @@ private initilizeData(){
 
     },
   };
-
-
-
-
   this.geoMapDataJson =
   {
     "map":{
@@ -203,5 +143,60 @@ private initilizeData(){
         "targetPropertyName":"properties.ADMIN",
     }
   };
+
   }
+
+  ngOnInit() {
+
+  }
+    getCountryData(country) {
+
+    var immigrants;
+    this.ImmigrationDataset = this.dataService.getDataNum();
+    this.ImmigrationDataset.subscribe(
+        result => {
+          var currentCountry;
+          var data_array = []
+          immigrants = result;
+          for(var i = 0;  i < immigrants.length; i++) {
+            if(immigrants[i].clr === country) {
+              currentCountry = immigrants[i]
+            }
+          }
+
+          console.log(currentCountry)
+          if (currentCountry === undefined){
+            currentCountry = immigrants[0]
+            this.countryName = "Total"
+          } else {
+            this.countryName = country
+
+          }
+            var keys = Object.keys(currentCountry);
+            var twentyteens = 0;
+
+            keys.forEach(function(key) {
+              var key_value_array = []
+              if(key === "2010" || key === "2011" || key === "2012" || key === "2013" || key === "2014" || key === "2015" ){
+                twentyteens += currentCountry[key];
+              }else {
+                var value = currentCountry[key]
+                key_value_array.push(key);
+                key_value_array.push(value);
+                data_array.push(key_value_array)
+              }
+            })
+            var twentyteens_array = ["2010s", twentyteens]
+            data_array.pop()
+            data_array.pop()
+            data_array.pop()
+            data_array.push(twentyteens_array)
+            this.chartData = data_array
+
+        })
+
+
+
+}
+
 }

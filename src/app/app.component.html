@@ -1,13 +1,2 @@
 
-	<div class="tab-content">
-		<div class="tab-pane">
-			<hr>
-			<h2>Immigation Map</h2>
-			<div class="map-pane">
-				<app-d3-graph [configData]="configData"  [graphData]="geoMapDataJson" (changeCountry)="getCountryData($event)"></app-d3-graph>
-
-				<app-bar-chart *ngIf="chartData" [data]="chartData" [countryName]="countryName"></app-bar-chart>
-
-			</div>
-		</div>
-	</div>
+<router-outlet></router-outlet>

@@ -1,2 +1,2 @@
 <p class="country_name">{{countryName}}</p>
-<div class="d3-chart" #chart></div>
+<div class="d3-chart" #chart (window:resize)="onResize($event)"></div>

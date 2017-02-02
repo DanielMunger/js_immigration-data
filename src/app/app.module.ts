@@ -13,6 +13,7 @@ import { AngularFireModule } from 'angularfire2';
 import { BarChartComponent } from './bar-chart/bar-chart.component';
 import { SplashComponent } from './splash/splash.component';
 import { MapViewerComponent } from './map-viewer/map-viewer.component';
+import { AboutComponent } from './about/about.component';
 
 export const firebaseConfig = {
   apiKey: masterFirebaseConfig.apiKey,
@@ -27,7 +28,8 @@ export const firebaseConfig = {
     D3GraphComponent,
     BarChartComponent,
     SplashComponent,
-    MapViewerComponent
+    MapViewerComponent,
+    AboutComponent
   ],
   imports: [
     BrowserModule,

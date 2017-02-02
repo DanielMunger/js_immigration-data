@@ -3,6 +3,22 @@
 }
 
 .ui-content {
-  float: left;
+  width: 20%;
   color: white;
+}
+
+.legend {
+  width: 20px;
+  height: 200px;
+  background: linear-gradient(#238b45, #e5f5f9);
+  float: left;
+  position: absolute;
+  margin-top: 10%;
+
+}
+
+
+.legend span {
+  font-size: 10px;
+  margin-left: 21px;
 }

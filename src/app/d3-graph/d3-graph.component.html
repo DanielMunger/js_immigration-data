@@ -1,4 +1,3 @@
-
   <div data-role="slider-header">
     <h5>Select Year:</h5>
   </div>
@@ -7,6 +6,4 @@
       {{yearSelected}}
       <input [(ngModel)]="yearSelected" (change)="clearSVG(); buildGeoMap(configData, graphData, svgWidth, svgHeight, immigrants, yearSelected)" type="range" min="1820" max="2015">
   </div>
-  <div class="">
-
-  </div>
+  <div class="legend"><span>>2,000,000</span><br><br><span>1,000,000</span><br><br><span>300,000</span><br><br><span>100,000</span><br><br><span >3,000</span></div>

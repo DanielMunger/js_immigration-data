@@ -120,158 +120,158 @@ export class O2Common {
 // -------------------------------------------
 // ----  AXIS  -------------------------------
 // -------------------------------------------
-
-    public get axisXLabelInitXPos(): number {
-        let _x = this.configData.margin.left
-                +this.configData.axis.xLabel.leftMargin;
-        return _x;
-    }
-
-    public get axisXLabelInitYPos(): number {
-        let _y = this.svgHeight
-                -this.configData.axis.xLabel.bottomMargin;
-        return _y;
-    }
-
-    public get axisTranslatePos(): string {
-        let _x = this.configData.margin.left;
-        let _y = this.configData.margin.top
-                +this.configData.title.height;
-        return "translate("+ String(_x) +", "+ String(_y)+")";
-    }
-
-
-    public get axisXBorderLineWidth(): number {
-        return this.configData.axis.borderLineWidth;
-    }
-
-    public get axisYBorderHeight(): number {
-        let _margin = this.configData.margin.top
-                        +this.configData.margin.bottom
-                        +this.configData.title.height;
-        return this.svgHeight - _margin;
-    }
-
-    public get axisXBorderWidth(): number {
-        let _margin = this.configData.margin.left
-                     +this.configData.margin.right;
-        if (this.configData.legend.display){
-            _margin += this.configData.legend.totalWidth;
-        }
-        return this.svgWidth-_margin;
-    }
-
-    public get axisYOrient(): string {
-        return "left";
-    }
-
-    public get axisXOrient(): string {
-        return "bottom";
-    }
-    public get axisXBorderTranslatePos(): string {
-        let sYpos = String(this.svgHeight-this.configData.margin.bottom);
-        return "translate("+this.configData.margin.left+", "+ sYpos+")";
-    }
-
-
-
-// -------------------------------------------
+//
+//     public get axisXLabelInitXPos(): number {
+//         let _x = this.configData.margin.left
+//                 +this.configData.axis.xLabel.leftMargin;
+//         return _x;
+//     }
+//
+//     public get axisXLabelInitYPos(): number {
+//         let _y = this.svgHeight
+//                 -this.configData.axis.xLabel.bottomMargin;
+//         return _y;
+//     }
+//
+//     public get axisTranslatePos(): string {
+//         let _x = this.configData.margin.left;
+//         let _y = this.configData.margin.top
+//                 +this.configData.title.height;
+//         return "translate("+ String(_x) +", "+ String(_y)+")";
+//     }
+//
+//
+//     public get axisXBorderLineWidth(): number {
+//         return this.configData.axis.borderLineWidth;
+//     }
+//
+//     public get axisYBorderHeight(): number {
+//         let _margin = this.configData.margin.top
+//                         +this.configData.margin.bottom
+//                         +this.configData.title.height;
+//         return this.svgHeight - _margin;
+//     }
+//
+//     public get axisXBorderWidth(): number {
+//         let _margin = this.configData.margin.left
+//                      +this.configData.margin.right;
+//         if (this.configData.legend.display){
+//             _margin += this.configData.legend.totalWidth;
+//         }
+//         return this.svgWidth-_margin;
+//     }
+//
+//     public get axisYOrient(): string {
+//         return "left";
+//     }
+//
+//     public get axisXOrient(): string {
+//         return "bottom";
+//     }
+//     public get axisXBorderTranslatePos(): string {
+//         let sYpos = String(this.svgHeight-this.configData.margin.bottom);
+//         return "translate("+this.configData.margin.left+", "+ sYpos+")";
+//     }
+//
+//
+//
+// // -------------------------------------------
 // ----  RADIUS  -------------------------------
 // -------------------------------------------
-
-    public get innerRadiusPercent(): number {
-        return this.configData.pie.innerRadius.percent;
-    }
-
-    public get innerRadiusTitle(): string {
-        return this.configData.pie.innerRadius.title;
-    }
-
-    public get innerRadiusTitleTranslatePos(): string {
-        let _x = this.configData.margin.left
-                    +this.graphWidth/2;
-        let _y = this.configData.margin.top
-                +this.configData.title.height
-                +this.graphHeight/2
-                +5;
-        return "translate("+ String(_x) +", "+ String(_y)+")";
-    }
-
+//
+//     public get innerRadiusPercent(): number {
+//         return this.configData.pie.innerRadius.percent;
+//     }
+//
+//     public get innerRadiusTitle(): string {
+//         return this.configData.pie.innerRadius.title;
+//     }
+//
+//     public get innerRadiusTitleTranslatePos(): string {
+//         let _x = this.configData.margin.left
+//                     +this.graphWidth/2;
+//         let _y = this.configData.margin.top
+//                 +this.configData.title.height
+//                 +this.graphHeight/2
+//                 +5;
+//         return "translate("+ String(_x) +", "+ String(_y)+")";
+//     }
+//
+// // -------------------------------------------
+// // ----  LEGEND  -------------------------------
 // -------------------------------------------
-// ----  LEGEND  -------------------------------
-// -------------------------------------------
-
-    public get legendInitXPos(): number {
-        let _x = this.configData.margin.left
-                    +this.graphWidth
-                    +this.configData.legend.initXPos ;
-        if (this.configData.legend.position != "right"){
-            _x = this.configData.margin.left
-                 +this.configData.legend.initXPos ;
-        }
-        return _x;
-    }
-
-    public get legendInitYPos(): number {
-        let _y = this.configData.margin.top
-                +this.configData.title.height
-                +this.configData.legend.initYPos;
-        return _y;
-    }
+    //
+    // public get legendInitXPos(): number {
+    //     let _x = this.configData.margin.left
+    //                 +this.graphWidth
+    //                 +this.configData.legend.initXPos ;
+    //     if (this.configData.legend.position != "right"){
+    //         _x = this.configData.margin.left
+    //              +this.configData.legend.initXPos ;
+    //     }
+    //     return _x;
+    // }
+    //
+    // public get legendInitYPos(): number {
+    //     let _y = this.configData.margin.top
+    //             +this.configData.title.height
+    //             +this.configData.legend.initYPos;
+    //     return _y;
+    // }
 
 // -------------------------------------------
 // ----  GRID  -------------------------------
 // -------------------------------------------
 
-    public get gridYStep(): number {
-        let _maxY = Math.ceil(this.maxYValue/100)*10;
-        let _lineNum = 10;
-        let _step = Math.ceil(_maxY / _lineNum)*_lineNum;
-        return _step;
-    }
-
-    public get gridXStep(): number {
-        let _maxX = Math.ceil(this.maxXValue/100)*10;
-        let _lineNum = 10;
-        let _step = Math.ceil(_maxX / _lineNum)*_lineNum;
-        return _step;
-    }
-
+    // public get gridYStep(): number {
+    //     let _maxY = Math.ceil(this.maxYValue/100)*10;
+    //     let _lineNum = 10;
+    //     let _step = Math.ceil(_maxY / _lineNum)*_lineNum;
+    //     return _step;
+    // }
+    //
+    // public get gridXStep(): number {
+    //     let _maxX = Math.ceil(this.maxXValue/100)*10;
+    //     let _lineNum = 10;
+    //     let _step = Math.ceil(_maxX / _lineNum)*_lineNum;
+    //     return _step;
+    // }
+    //
 
 // -------------------------------------------
 // ----  TITLE  -------------------------------
 // -------------------------------------------
-
-    public get titleInitXPos(): number {
-        let _x = this.configData.margin.left
-                + (this.graphWidth+this.configData.legend.totalWidth)/2
-                + this.configData.title.leftMargin;
-        return _x;
-    }
-
-    public get titleInitYPos(): number {
-        let _y = this.configData.margin.top
-                +this.configData.title.height
-                -this.configData.title.bottomMargin;
-        return _y;
-    }
+    //
+    // public get titleInitXPos(): number {
+    //     let _x = this.configData.margin.left
+    //             + (this.graphWidth+this.configData.legend.totalWidth)/2
+    //             + this.configData.title.leftMargin;
+    //     return _x;
+    // }
+    //
+    // public get titleInitYPos(): number {
+    //     let _y = this.configData.margin.top
+    //             +this.configData.title.height
+    //             -this.configData.title.bottomMargin;
+    //     return _y;
+    // }
 
 // -------------------------------------------
 // ----  COLOR  -------------------------------
 // -------------------------------------------
-
-    public get defaultColorFunc(): any {
-        let _color :any;
-        if (this.configData.color.auto ){
-            if (this.configData.color.defaultColorNumber == "20"){
-                _color = d3.scaleOrdinal(d3.schemeCategory20);
-            }
-            else{
-                _color = d3.scaleOrdinal(d3.schemeCategory10);
-            }
-        }
-        return _color;
-    }
+    //
+    // public get defaultColorFunc(): any {
+    //     let _color :any;
+    //     if (this.configData.color.auto ){
+    //         if (this.configData.color.defaultColorNumber == "20"){
+    //             _color = d3.scaleOrdinal(d3.schemeCategory20);
+    //         }
+    //         else{
+    //             _color = d3.scaleOrdinal(d3.schemeCategory10);
+    //         }
+    //     }
+    //     return _color;
+    // }
 }
 
 export class O2LineData {

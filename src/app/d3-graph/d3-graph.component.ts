@@ -59,58 +59,7 @@ export class D3GraphComponent implements OnInit{
   }
 
 
-      var svgContainer = this.root.append("svg")
-                .attr("viewBox", "0 0 1200 800");
-        if(immigrants===null)
-        {immigrants=this.immigrants}
-
-
-        var yearSelected = inputYearSelected;
-        var countryIterator = 0;
-
-        let _maxX = 100; //any value
-        let _maxY = 100; //any value
-        let cdt = new O2Common(svgContainer,configData,_maxX,_maxY,svgWidth,svgHeight);
-        let _graphCenterPos = cdt.graphCenterPos;
-        let _geoMapDataUrl =  dataSetJson.map.baseGeoDataUrl;
-
-        let _scale = dataSetJson.map.scale;
-        let _keyDataName = dataSetJson.map.keyDataName;
-        let _keyName = "data."+_keyDataName;
-        let _targetProperty = "d."+dataSetJson.map.targetPropertyName;
-
-
-        let path = d3.geoPath()
-                    .projection(
-                        d3.geoMercator()
-                        .translate(_graphCenterPos)
-                        .scale(_scale)
-                    )
-
-
-        function colorByImmigration(country, yearSelected)
-        {
-            var inDB = false;
-            var index = null;
-            if(country === "United States of America")return "#0D4F8B";
-
-            for(var i = 0; i < immigrants.length; i++)
-            {
-
-              if(country == immigrants[i].clr){
-                  inDB = true;
-                  index = i;
-              }
-            }
-              if(inDB){
-                  return immigrationIntensity(returnDataByPeriod(immigrants[index], yearSelected));
-              }
-              else{
-                  return "#B7C3D0";
-              }
-
   private buildGeoMap(configData:any, dataSetJson: any, svgWidth: number, svgHeight: number, immigrants, inputYearSelected){
-
 
     var svgContainer = this.root.append("svg").attr("viewBox", "0 0 1200 800");
     if(immigrants===null)
@@ -225,31 +174,6 @@ export class D3GraphComponent implements OnInit{
       }
     }
 
-
-        //var tip = d3.tip().attr('class', 'd3-tip').html(function(d) {return d; });
-
-        d3.json(_geoMapDataUrl,(error,data) =>{
-            svgContainer.selectAll("path")
-                    .data(eval(_keyName))
-                    .enter()
-                    .append("path")
-                    .attr("d",path)
-                    .style("fill",(d,i) => {
-                        let _targetArea = eval(_targetProperty);
-                        return colorByImmigration(_targetArea, yearSelected);
-                    })
-
-                    .attr("class", "country")
-                    .on('mouseover', (d, i) => {
-                      let _targetArea = (eval(_targetProperty))
-                      this.changeCountry.emit(_targetArea)
-                    })
-                    //.on('mouseover', (d, i) => {
-                      //alert("hello")
-                  //})
-
-    })
-
     function immigrationIntensity(input){
       if(input < 500){
         return "#f7fcfd";
@@ -270,6 +194,7 @@ export class D3GraphComponent implements OnInit{
       }
     }
 
+
     d3.json(_geoMapDataUrl,(error,data) =>{
       svgContainer.selectAll("path")
         .data(eval(_keyName))
@@ -287,6 +212,5 @@ export class D3GraphComponent implements OnInit{
         })
       }
     )
-
   }
 }

@@ -6,8 +6,6 @@ import { HttpModule } from '@angular/http';
 import { AppComponent } from './app.component';
 import { D3GraphComponent } from './d3-graph/d3-graph.component';
 import { routing } from './app.routing';
-
-
 import { masterFirebaseConfig } from './api-keys';
 import { AngularFireModule } from 'angularfire2';
 import { BarChartComponent } from './bar-chart/bar-chart.component';

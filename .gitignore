@@ -6,7 +6,7 @@
 
 #Firebase credentials
 ####
-#Remember to put API KEY back in
+/src/app/api-keys.ts
 ####
 
 # dependencies

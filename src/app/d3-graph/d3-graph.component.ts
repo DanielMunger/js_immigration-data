@@ -58,6 +58,7 @@ export class D3GraphComponent implements OnInit{
     d3.select("svg").remove();
   }
 
+
   private buildGeoMap(configData:any, dataSetJson: any, svgWidth: number, svgHeight: number, immigrants, inputYearSelected){
 
     var svgContainer = this.root.append("svg").attr("viewBox", "0 0 1200 800");
@@ -192,6 +193,7 @@ export class D3GraphComponent implements OnInit{
         return "#006d2c"
       }
     }
+
 
     d3.json(_geoMapDataUrl,(error,data) =>{
       svgContainer.selectAll("path")

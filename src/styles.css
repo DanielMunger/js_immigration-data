@@ -12,4 +12,13 @@ path.country:hover {
 }
 .page-body {
   margin: 10%;
+  margin-top: 5%;
+}
+.indent {
+  margin-left: 25px;
+}
+.home{
+  position: absolute;
+  top: 5%;
+  right: 10%;
 }

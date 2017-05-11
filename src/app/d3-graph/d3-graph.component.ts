@@ -154,24 +154,10 @@ export class D3GraphComponent implements OnInit{
       if(period < 2010){
         return country.twothousands
       }
-      if(period = 2010){
+      if(period < 2015){
         return country.twentyten
       }
-      if(period = 2011){
-        return country.twentyeleven
-      }
-      if(period = 2012){
-        return country.twentytwelve
-      }
-      if(period = 2013){
-        return country.twentythirteen
-      }
-      if(period = 2014){
-        return country.twentyfourteen
-      }
-      if(period = 2015){
-        return country.twentyfifteen
-      }
+
     }
 
     function immigrationIntensity(input){
@@ -206,7 +192,7 @@ export class D3GraphComponent implements OnInit{
           return colorByImmigration(_targetArea, yearSelected);
         })
         .attr("class", "country")
-        .on('mouseover', (d, i) => {
+        .on('click', (d, i) => {
             let _targetArea = (eval(_targetProperty))
             this.changeCountry.emit(_targetArea)
         })

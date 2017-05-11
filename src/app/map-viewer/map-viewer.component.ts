@@ -21,7 +21,7 @@ export class MapViewerComponent implements OnInit {
   lineTypeName:string;
   geoMapTypeName:string;
 
-  constructor(private dataService: DataService) { 
+  constructor(private dataService: DataService) {
 
     this.geoMapTypeName = "geoMap";
     this.configData = {
@@ -132,7 +132,7 @@ export class MapViewerComponent implements OnInit {
         },
       },
     };
-        
+
     this.geoMapDataJson = {
       "map":{
         "baseGeoDataUrl":"https://raw.githubusercontent.com/Solgo/js_immigration-data/munger-1/src/geographies.geojson",
@@ -174,7 +174,7 @@ export class MapViewerComponent implements OnInit {
 
         keys.forEach(function(key) {
           var key_value_array = []
-          if(key === "2010" || key === "2011" || key === "2012" || key === "2013" || key === "2014" || key === "2015" ){
+          if(key === "2010" || key === "2011" || key === "2012" || key === "2013" || key === "2014" || key === "2015s" || key === "2010s" || key === "2011s" || key === "2012s" || key === "2013s" || key === "2014s" || key === "2015s"){
             twentyteens += currentCountry[key];
           }
           else {

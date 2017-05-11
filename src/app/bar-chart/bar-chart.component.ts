@@ -42,6 +42,13 @@ export class BarChartComponent implements OnInit, OnChanges {
   }
 
   createChart() {
+    var _this1 = this.data
+    var tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden");
+
     let element = this.chartContainer.nativeElement;
     this.width = element.offsetWidth - this.margin.left - this.margin.right;
     this.height = element.offsetHeight - this.margin.top - this.margin.bottom;
@@ -54,6 +61,7 @@ export class BarChartComponent implements OnInit, OnChanges {
     this.chart = svg.append('g')
       .attr('class', 'bars')
       .attr('transform', `translate(${this.margin.left}, ${this.margin.top})`)
+
 
     // define X & Y domains
     let xDomain = this.data.map(d => d[0]);
@@ -78,7 +86,14 @@ export class BarChartComponent implements OnInit, OnChanges {
   }
 
   updateChart() {
-    // update scales & axis
+    var _this1 = this.data
+
+    var tooltip = d3.select("body")
+    .append("div")
+    .style("position", "absolute")
+    .style("z-index", "10")
+    .style("visibility", "hidden");
+
     this.xScale.domain(this.data.map(d => d[0]));
     this.yScale.domain([0, d3.max(this.data, d => d[1])]);
     this.colors.domain([0, this.data.length]);
@@ -86,7 +101,13 @@ export class BarChartComponent implements OnInit, OnChanges {
     this.yAxis.transition().call(d3.axisLeft(this.yScale));
 
     let update = this.chart.selectAll('.bar')
-      .data(this.data);
+
+      .data(this.data)
+      .on("mouseover", function(){return tooltip.style("visibility", "visible").text(Math.ceil((this.height.animVal.value/320) * d3.max(_this1, d => d[1])));})
+      .on("mousemove", function(){return tooltip.style("top",
+      (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+10)+"px");})
+      .on("mouseout", function(){return tooltip.style("visibility", "hidden");})
+      ;
 
     // remove exiting bars
     update.exit().remove();
@@ -97,7 +118,8 @@ export class BarChartComponent implements OnInit, OnChanges {
       .attr('y', d => this.yScale(d[1]))
       .attr('width', d => this.xScale.bandwidth())
       .attr('height', d => this.height - this.yScale(d[1]))
-      .style('fill', (d, i) => this.colors(i));
+      .style('fill', (d, i) => this.colors(i))
+      ;
 
     // add new bars
     update
@@ -112,6 +134,7 @@ export class BarChartComponent implements OnInit, OnChanges {
       .transition()
       .delay((d, i) => i * 10)
       .attr('y', d => this.yScale(d[1]))
-      .attr('height', d => this.height - this.yScale(d[1]));
+      .attr('height', d => this.height - this.yScale(d[1]))
+      ;
   }
 }

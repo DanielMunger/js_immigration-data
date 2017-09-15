@@ -15,7 +15,7 @@
     "e2e": "protractor",
     "heroku-prebuild": "npm install -g http-server",
     "heroku-postbuild": "ng build --prod",
-    "start": "http-server dist/"
+    "start": "http-server dist/",
   },
   "private": true,
   "dependencies": {

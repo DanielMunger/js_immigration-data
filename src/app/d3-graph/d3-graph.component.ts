@@ -154,8 +154,8 @@ export class D3GraphComponent implements OnInit{
       if(period < 2010){
         return country.twothousands
       }
-      if(period < 2015){
-        return country.twentyten
+      if(period < 2016){
+        return country.twentyteens
       }
 
     }
